@@ -17,12 +17,11 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-  <% if notice%>
-  <p class="notice"><%= notice %></p>
+  <% if flash[:message] %>
+    <div class="alert alert-success" role="alert">
+      <%= flash[:message] %>
+    </div>
   <% end %>
-  <% if alert %>
-  <p class="alert"><%= alert %></p>
-  <% end%>
   <%= yield %>
 
 </body>
