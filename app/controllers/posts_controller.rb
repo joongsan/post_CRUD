@@ -19,8 +19,20 @@ class PostsController < ApplicationController
         uploader.store!(params[:my_image])
         post.image_url = uploader.url
         post.tumb_url = uploader.thumb.url
-        post.save
-        redirect_to '/'
+    
+        if post.save
+            flash[:message] = '글이 작성되었습니다'
+        else
+            messages = []
+            post.errors.messages.each_with_index do |msg, idx|
+                messages.push(msg[1][0])
+            end
+            @messages = messages.join('\n')
+        end
+        
+        respond_to do |format|
+            format.js
+        end
     end
     
     def edit
